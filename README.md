@@ -10,7 +10,6 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 - __`test_corpus`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_msg`_ (optional, default: `null`)
 
  Returns the current status of a `corpus`: "ready"/"starting"/"stopped"/"error".
 
@@ -37,8 +36,6 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
  + _`name`_ (optional, default: `"--hyphe--"`)
  + _`password`_ (optional, default: `""`)
  + _`options`_ (optional, default: `{}`)
- + _`_noloop`_ (optional, default: `false`)
- + _`_quiet`_ (optional, default: `false`)
 
  Creates a corpus with the chosen `name` and optional `password` and `options` (as a json object see `set/get_corpus_options`). Returns the corpus generated id and status.
 
@@ -46,16 +43,12 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 - __`start_corpus`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
  + _`password`_ (optional, default: `""`)
- + _`_noloop`_ (optional, default: `false`)
- + _`_quiet`_ (optional, default: `false`)
- + _`_create_if_missing`_ (optional, default: `false`)
 
  Starts an existing `corpus` possibly `password`-protected. Returns the new corpus status.
 
 
 - __`stop_corpus`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_quiet`_ (optional, default: `false`)
 
  Stops an existing and running `corpus`. Returns the new corpus status.
 
@@ -69,15 +62,12 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 - __`reinitialize`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_noloop`_ (optional, default: `false`)
- + _`_quiet`_ (optional, default: `false`)
 
  Resets completely a `corpus` by cancelling all crawls and emptying the MemoryStructure and Mongo data.
 
 
 - __`destroy_corpus`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_quiet`_ (optional, default: `false`)
 
  Resets a `corpus` then definitely deletes anything associated with it.
 
@@ -96,14 +86,14 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 ### BASIC PAGE DECLARATION (AND WEBENTITY CREATION)
 
 - __`declare_page`:__
- + `_`url`_ (mandatory)
+ + _`url`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Indexes a `url` into a `corpus`. Returns the (newly created or not) associated WebEntity.
 
 
 - __`declare_pages`:__
- + `_`list_urls`_ (mandatory)
+ + _`list_urls`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Indexes a bunch of urls given as an array in `list_urls` into a `corpus`. Returns the (newly created or not) associated WebEntities.
@@ -120,7 +110,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`crawl_webentity`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`depth`_ (optional, default: `null`)
  + _`phantom_crawl`_ (optional, default: `false`)
  + _`status`_ (optional, default: `"IN"`)
@@ -128,11 +118,11 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
  + _`phantom_timeouts`_ (optional, default: `{}`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
- Schedules a crawl for a `corpus` for an existing WebEntity defined by its `webentity_id` with a specific crawl `depth [int]`. Optionally use PhantomJS by setting `phantom_crawl` to "true" and adjust specific `phantom_timeouts` as a json object with possible keys `timeout`/`ajax_timeout`/`idle_timeout`. Sets simultaneously the WebEntity's status to "IN" or optionally to another valid `status` ("undecided"/"out"/"discovered)". Optionally defines the `startpages` strategy by starting the crawl either from the WebEntity's preset "startpages" or "prefixes" or already seen "pages".
+ Schedules a crawl for a `corpus` for an existing WebEntity defined by its `webentity_id` with a specific crawl `depth [int]`. Optionally use PhantomJS by setting `phantom_crawl` to "true" and adjust specific `phantom_timeouts` as a json object with possible keys `timeout`/`ajax_timeout`/`idle_timeout`. Sets simultaneously the WebEntity's status to "IN" or optionally to another valid `status` ("undecided"/"out"/"discovered"). Optionally defines the `startpages` strategy by starting the crawl either from the WebEntity's preset "startpages" or "prefixes" or already seen "pages".
 
 
 - __`get_webentity_logs`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` crawl activity logs on a specific WebEntity defined by its `webentity_id`.
@@ -140,7 +130,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 ### HTTP LOOKUP METHODS
 
 - __`lookup_httpstatus`:__
- + `_`url`_ (mandatory)
+ + _`url`_ (mandatory)
  + _`timeout`_ (optional, default: `30`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
@@ -148,7 +138,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`lookup`:__
- + `_`url`_ (mandatory)
+ + _`url`_ (mandatory)
  + _`timeout`_ (optional, default: `30`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
@@ -160,14 +150,12 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 - __`deploy_crawler`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_quiet`_ (optional, default: `false`)
 
  Prepares and deploys on the ScrapyD server a spider (crawler) for a `corpus`.
 
 
 - __`delete_crawler`:__
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_quiet`_ (optional, default: `false`)
 
  Removes from the ScrapyD server an existing spider (crawler) for a `corpus`.
 
@@ -181,10 +169,10 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`start`:__
- + `_`webentity_id`_ (mandatory)
- + `_`starts`_ (mandatory)
- + `_`follow_prefixes`_ (mandatory)
- + `_`nofollow_prefixes`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`starts`_ (mandatory)
+ + _`follow_prefixes`_ (mandatory)
+ + _`nofollow_prefixes`_ (mandatory)
  + _`follow_redirects`_ (optional, default: `null`)
  + _`depth`_ (optional, default: `null`)
  + _`phantom_crawl`_ (optional, default: `false`)
@@ -202,14 +190,14 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`cancel`:__
- + `_`job_id`_ (mandatory)
+ + _`job_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Cancels a crawl of id `job_id` for a `corpus`.
 
 
 - __`get_job_logs`:__
- + `_`job_id`_ (mandatory)
+ + _`job_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` activity logs of a specific crawl with id `job_id`.
@@ -220,118 +208,118 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 ### DEFINE WEBENTITIES
 
 - __`get_lru_definedprefixes`:__
- + `_`lru`_ (mandatory)
+ + _`lru`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` a list of all possible LRU prefixes shorter than `lru` and already attached to WebEntities.
 
 
 - __`declare_webentity_by_lruprefix_as_url`:__
- + `_`url`_ (mandatory)
+ + _`url`_ (mandatory)
  + _`name`_ (optional, default: `null`)
  + _`status`_ (optional, default: `null`)
  + _`startPages`_ (optional, default: `[]`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
- Creates for a `corpus` a WebEntity defined for the LRU prefix given as a `url`. Optionally set the newly created WebEntity's `name` `status` ("in"/"ou"/"undecided"/"discovered") and list of `startPages`. Returns the newly created WebEntity.
+ Creates for a `corpus` a WebEntity defined for the LRU prefix given as a `url`. Optionally set the newly created WebEntity's `name` `status` ("in"/"out"/"undecided"/"discovered") and list of `startPages`. Returns the newly created WebEntity.
 
 
 - __`declare_webentity_by_lru`:__
- + `_`lru_prefix`_ (mandatory)
+ + _`lru_prefix`_ (mandatory)
  + _`name`_ (optional, default: `null`)
  + _`status`_ (optional, default: `null`)
  + _`startPages`_ (optional, default: `[]`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
- Creates for a `corpus` a WebEntity defined for a `lru_prefix`. Optionally set the newly created WebEntity's `name` `status` ("in"/"ou"/"undecided"/"discovered") and list of `startPages`. Returns the newly created WebEntity.
+ Creates for a `corpus` a WebEntity defined for a `lru_prefix`. Optionally set the newly created WebEntity's `name` `status` ("in"/"out"/"undecided"/"discovered") and list of `startPages`. Returns the newly created WebEntity.
 
 
 - __`declare_webentity_by_lrus`:__
- + `_`list_lrus`_ (mandatory)
+ + _`list_lrus`_ (mandatory)
  + _`name`_ (optional, default: `null`)
  + _`status`_ (optional, default: `null`)
  + _`startPages`_ (optional, default: `[]`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
- Creates for a `corpus` a WebEntity defined for a set of LRU prefixes given as `list_lrus`. Optionally set the newly created WebEntity's `name` `status` ("in"/"ou"/"undecided"/"discovered") and list of `startPages`. Returns the newly created WebEntity.
+ Creates for a `corpus` a WebEntity defined for a set of LRU prefixes given as `list_lrus`. Optionally set the newly created WebEntity's `name` `status` ("in"/"out"/"undecided"/"discovered") and list of `startPages`. Returns the newly created WebEntity.
 
 ### EDIT WEBENTITIES
 
 - __`rename_webentity`:__
- + `_`webentity_id`_ (mandatory)
- + `_`new_name`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`new_name`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Changes for a `corpus` the name of a WebEntity defined by `webentity_id` to `new_name`.
 
 
 - __`change_webentity_id`:__
- + `_`webentity_old_id`_ (mandatory)
- + `_`webentity_new_id`_ (mandatory)
+ + _`webentity_old_id`_ (mandatory)
+ + _`webentity_new_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
- Changes for a `corpus` the id of a WebEntity defined by `webentity_old_id` to `webenetity_new_id` (mainly for advanced debug use).
+ Changes for a `corpus` the id of a WebEntity defined by `webentity_old_id` to `webentity_new_id` (mainly for advanced debug use).
 
 
 - __`set_webentity_status`:__
- + `_`webentity_id`_ (mandatory)
- + `_`status`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`status`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Changes for a `corpus` the status of a WebEntity defined by `webentity_id` to `status` (one of "in"/"out"/"undecided"/"discovered").
 
 
 - __`set_webentities_status`:__
- + `_`webentity_ids`_ (mandatory)
- + `_`status`_ (mandatory)
+ + _`webentity_ids`_ (mandatory)
+ + _`status`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Changes for a `corpus` the status of a set of WebEntities defined by a list of `webentity_ids` to `status` (one of "in"/"out"/"undecided"/"discovered").
 
 
 - __`set_webentity_homepage`:__
- + `_`webentity_id`_ (mandatory)
- + `_`homepage`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`homepage`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Changes for a `corpus` the homepage of a WebEntity defined by `webentity_id` to `homepage`.
 
 
 - __`add_webentity_lruprefixes`:__
- + `_`webentity_id`_ (mandatory)
- + `_`lru_prefixes`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`lru_prefixes`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Adds for a `corpus` a list of `lru_prefixes` (or a single one) to a WebEntity defined by `webentity_id`.
 
 
 - __`rm_webentity_lruprefix`:__
- + `_`webentity_id`_ (mandatory)
- + `_`lru_prefix`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`lru_prefix`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes for a `corpus` a `lru_prefix` from the list of prefixes of a WebEntity defined by `webentity_id. Will delete the WebEntity if it ends up with no LRU prefix left.
 
 
 - __`add_webentity_startpage`:__
- + `_`webentity_id`_ (mandatory)
- + `_`startpage_url`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`startpage_url`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Adds for a `corpus` a list of `lru_prefixes` to a WebEntity defined by `webentity_id`.
 
 
 - __`rm_webentity_startpage`:__
- + `_`webentity_id`_ (mandatory)
- + `_`startpage_url`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`startpage_url`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes for a `corpus` a `startpage_url` from the list of startpages of a WebEntity defined by `webentity_id.
 
 
 - __`merge_webentity_into_another`:__
- + `_`old_webentity_id`_ (mandatory)
- + `_`good_webentity_id`_ (mandatory)
+ + _`old_webentity_id`_ (mandatory)
+ + _`good_webentity_id`_ (mandatory)
  + _`include_tags`_ (optional, default: `false`)
  + _`include_home_and_startpages_as_startpages`_ (optional, default: `false`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
@@ -340,8 +328,8 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`merge_webentities_into_another`:__
- + `_`old_webentity_ids`_ (mandatory)
- + `_`good_webentity_id`_ (mandatory)
+ + _`old_webentity_ids`_ (mandatory)
+ + _`good_webentity_id`_ (mandatory)
  + _`include_tags`_ (optional, default: `false`)
  + _`include_home_and_startpages_as_startpages`_ (optional, default: `false`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
@@ -350,7 +338,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`delete_webentity`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes from a `corpus` a WebEntity defined by `webentity_id` (mainly for advanced debug use).
@@ -358,35 +346,35 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 ### RETRIEVE & SEARCH WEBENTITIES
 
 - __`get_webentity`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` a WebEntity defined by its `webentity_id`.
 
 
 - __`get_webentity_by_lruprefix`:__
- + `_`lru_prefix`_ (mandatory)
+ + _`lru_prefix`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` the WebEntity having `lru_prefix` as one of its LRU prefixes.
 
 
 - __`get_webentity_by_lruprefix_as_url`:__
- + `_`url`_ (mandatory)
+ + _`url`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` the WebEntity having one of its LRU prefixes corresponding to the LRU fiven under the form of a `url`.
 
 
 - __`get_webentity_for_url`:__
- + `_`url`_ (mandatory)
+ + _`url`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` the WebEntity to which a `url` belongs (meaning starting with one of the WebEntity's prefix and not another).
 
 
 - __`get_webentity_for_url_as_lru`:__
- + `_`lru`_ (mandatory)
+ + _`lru`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` the WebEntity to which a url given under the form of a `lru` belongs (meaning starting with one of the WebEntity's prefix and not another).
@@ -426,7 +414,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`exact_search_webentities`:__
- + `_`query`_ (mandatory)
+ + _`query`_ (mandatory)
  + _`field`_ (optional, default: `null`)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
@@ -438,7 +426,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`prefixed_search_webentities`:__
- + `_`query`_ (mandatory)
+ + _`query`_ (mandatory)
  + _`field`_ (optional, default: `null`)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
@@ -450,7 +438,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`postfixed_search_webentities`:__
- + `_`query`_ (mandatory)
+ + _`query`_ (mandatory)
  + _`field`_ (optional, default: `null`)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
@@ -462,7 +450,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`free_search_webentities`:__
- + `_`query`_ (mandatory)
+ + _`query`_ (mandatory)
  + _`field`_ (optional, default: `null`)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
@@ -474,7 +462,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentities_by_status`:__
- + `_`status`_ (mandatory)
+ + _`status`_ (mandatory)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
  + _`page`_ (optional, default: `0`)
@@ -485,7 +473,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentities_by_name`:__
- + `_`name`_ (mandatory)
+ + _`name`_ (mandatory)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
  + _`page`_ (optional, default: `0`)
@@ -496,7 +484,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentities_by_tag_value`:__
- + `_`value`_ (mandatory)
+ + _`value`_ (mandatory)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
  + _`page`_ (optional, default: `0`)
@@ -507,7 +495,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentities_by_tag_category`:__
- + `_`category`_ (mandatory)
+ + _`category`_ (mandatory)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
  + _`page`_ (optional, default: `0`)
@@ -518,8 +506,8 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentities_by_user_tag`:__
- + `_`category`_ (mandatory)
- + `_`value`_ (mandatory)
+ + _`category`_ (mandatory)
+ + _`value`_ (mandatory)
  + _`sort`_ (optional, default: `null`)
  + _`count`_ (optional, default: `100`)
  + _`page`_ (optional, default: `0`)
@@ -530,66 +518,65 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentities_page`:__
- + `_`pagination_token`_ (mandatory)
- + `_`n_page`_ (mandatory)
+ + _`pagination_token`_ (mandatory)
+ + _`n_page`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` the page number `n_page` of WebEntities corresponding to the results of a previous query ran using any of the `get_webentities` or `search_webentities` methods using the returned `pagination_token`.
 
 
 - __`get_webentities_ranking_stats`:__
- + `_`pagination_token`_ (mandatory)
+ + _`pagination_token`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
- + _`_ranking_field`_ (optional, default: `"indegree"`)
 
  Returns for a `corpus` histogram data on the indegrees of all WebEntities matching a previous query ran using any of the `get_webentities` or `search_webentities` methods using the return `pagination_token`.
 
 ### TAGS
 
 - __`add_webentity_tag_value`:__
- + `_`webentity_id`_ (mandatory)
- + `_`namespace`_ (mandatory)
- + `_`category`_ (mandatory)
- + `_`value`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`namespace`_ (mandatory)
+ + _`category`_ (mandatory)
+ + _`value`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Adds for a `corpus` a tag `namespace:category`_ (optional, default: `value` to a WebEntity defined by `webentity_id`.`)
 
 
 - __`add_webentities_tag_value`:__
- + `_`webentity_ids`_ (mandatory)
- + `_`namespace`_ (mandatory)
- + `_`category`_ (mandatory)
- + `_`value`_ (mandatory)
+ + _`webentity_ids`_ (mandatory)
+ + _`namespace`_ (mandatory)
+ + _`category`_ (mandatory)
+ + _`value`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Adds for a `corpus` a tag `namespace:category`_ (optional, default: `value` to a bunch of WebEntities defined by a list of `webentity_ids`.`)
 
 
 - __`rm_webentity_tag_key`:__
- + `_`webentity_id`_ (mandatory)
- + `_`namespace`_ (mandatory)
- + `_`category`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`namespace`_ (mandatory)
+ + _`category`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes for a `corpus` all tags within `namespace:category` associated with a WebEntity defined by `webentity_id` if it is set.
 
 
 - __`rm_webentity_tag_value`:__
- + `_`webentity_id`_ (mandatory)
- + `_`namespace`_ (mandatory)
- + `_`category`_ (mandatory)
- + `_`value`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`namespace`_ (mandatory)
+ + _`category`_ (mandatory)
+ + _`value`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes for a `corpus` a tag `namespace:category`_ (optional, default: `value` associated with a WebEntity defined by `webentity_id` if it is set.`)
 
 
 - __`set_webentity_tag_values`:__
- + `_`webentity_id`_ (mandatory)
- + `_`namespace`_ (mandatory)
- + `_`category`_ (mandatory)
- + `_`values`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
+ + _`namespace`_ (mandatory)
+ + _`category`_ (mandatory)
+ + _`values`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Replaces for a `corpus` all existing tags of a WebEntity defined by `webentity_id` for a specific `namespace` and `category` by a list of `values` or a single tag.
@@ -625,7 +612,7 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
  + _`LINKS & NETWORKS
 
 - __`get_webentity_pages`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`onlyCrawled`_ (optional, default: `true`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
@@ -633,14 +620,14 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`get_webentity_subwebentities`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` all sub-webentities of a WebEntity defined by `webentity_id` (meaning webentities having at least one LRU prefix starting with one of the WebEntity's prefixes).
 
 
 - __`get_webentity_parentwebentities`:__
- + `_`webentity_id`_ (mandatory)
+ + _`webentity_id`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns for a `corpus` all parent-webentities of a WebEntity defined by `webentity_id` (meaning webentities having at least one LRU prefix starting like one of the WebEntity's prefixes).
@@ -669,15 +656,15 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`delete_webentity_creationrule`:__
- + `_`lru_prefix`_ (mandatory)
+ + _`lru_prefix`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes from a `corpus` an existing WebEntityCreationRule set for a specific `lru_prefix`.
 
 
 - __`add_webentity_creationrule`:__
- + `_`lru_prefix`_ (mandatory)
- + `_`regexp`_ (mandatory)
+ + _`lru_prefix`_ (mandatory)
+ + _`regexp`_ (mandatory)
  + _`apply_to_existing_pages`_ (optional, default: `false`)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
@@ -685,14 +672,14 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`simulate_creationrules_for_urls`:__
- + `_`pageURLs`_ (mandatory)
+ + _`pageURLs`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns an object giving for each URL of `pageURLs` (single string or array) the prefix of the theoretical WebEntity the URL would be attached to within a `corpus` following its specific WebEntityCreationRules.
 
 
 - __`simulate_creationrules_for_lrus`:__
- + `_`pageLRUs`_ (mandatory)
+ + _`pageLRUs`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Returns an object giving for each LRU of `pageLRUs` (single string or array) the prefix of the theoretical WebEntity the LRU would be attached to within a `corpus` following its specific WebEntityCreationRules.
@@ -706,14 +693,14 @@ _Note:_ as it relies on the JSON-RPC protocol, it is not quite easy to test the 
 
 
 - __`delete_precision_exceptions`:__
- + `_`list_lru_exceptions`_ (mandatory)
+ + _`list_lru_exceptions`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Removes from a `corpus` a set of existing PrecisionExceptions listed as `list_lru_exceptions`.
 
 
 - __`add_precision_exception`:__
- + `_`lru_prefix`_ (mandatory)
+ + _`lru_prefix`_ (mandatory)
  + _`corpus`_ (optional, default: `"--hyphe--"`)
 
  Adds to a `corpus` a new PrecisionException for `lru_prefix`.
